@@ -160,9 +160,21 @@ export default {
   border-radius: 0.25rem;
   text-align: left;
 
-  width: 50vw;
+  width: 90vw;
 
   overflow: hidden;
+}
+
+@media screen and (min-width: 1600px){
+  .smart-meter {
+    width: 75vw;
+  }
+}
+
+@media screen and (min-width: 1900px){
+  .smart-meter {
+    width: 50vw;
+  }
 }
 
 header {
