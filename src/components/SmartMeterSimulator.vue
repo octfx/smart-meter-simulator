@@ -116,7 +116,7 @@ export default {
       axios.post(this.finalUrl, {
         meterId: this.meterId,
         meterValue: this.wattage,
-        timestamp: (new Date()).toISOString()
+        timestamp: this.toIsoLocal(new Date())
       }, {
         params: {
           authKey: this.authKey
@@ -146,6 +146,22 @@ export default {
       this.wattageGainInterval = setInterval(function () {
         this.wattage += this.wattageGain
       }.bind(this), 1000)
+    },
+    toIsoLocal: function toISOLocal(d) {
+      const z = n => ('0' + n).slice(-2);
+      const zz = n => ('00' + n).slice(-3);
+      let off = d.getTimezoneOffset();
+      const sign = off < 0 ? '+' : '-';
+      off = Math.abs(off);
+
+      return d.getFullYear() + '-'
+          + z(d.getMonth()+1) + '-' +
+          z(d.getDate()) + 'T' +
+          z(d.getHours()) + ':'  +
+          z(d.getMinutes()) + ':' +
+          z(d.getSeconds()) + '.' +
+          zz(d.getMilliseconds()) +
+          sign + z(off/60|0) + ':' + z(off%60);
     }
   }
 }
